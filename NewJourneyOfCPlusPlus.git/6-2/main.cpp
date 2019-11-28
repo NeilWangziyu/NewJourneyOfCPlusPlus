@@ -155,8 +155,36 @@ const string &shorterString(const string &s1, const string &s2)
     return s1.size() <= s2.size() ? s1 : s2;
 }
 
+//const_case
+string &shorterString(string &s1, string &s2)
+{
+    auto &r = shorterString(const_cast<const string&>(s1), const_cast<const string&>(s2));
+    return const_cast<string&>(r);
+}
+
+inline const string& shorterStringIn(const string &s1, const string &s2)
+//inline function
+{
+    return s1.size() <= s2.size() ? s1 : s2;
+}
+
 
 //return lvalue
+char &get_val(string &str, string::size_type ix)
+{
+    return str[ix];
+}
+
+//函数指针
+bool lengthCompare(const string& s1, const string &s2)
+{
+    return s1.size() >= s2.size();
+}
+
+void useBigger(const string &s1, const string &s2, bool bf(const string &, const string &));
+
+
+
 
 
 int main(int argc, const char * argv[]) {
@@ -203,6 +231,32 @@ int main(int argc, const char * argv[]) {
     make_sure_same(x1, x2);
     cout << "\n";
     make_sure_same(x1, x3);
+    
+    
+    cout << "use left value" << endl;
+    
+    string ss("a value");
+    cout << ss << endl;
+    get_val(ss, 0) = 'A';
+    cout << ss << endl;
+    
+    
+    bool (*pf) (const string &, const string &);
+    
+    pf = lengthCompare;
+//    pf points to function named lengthCompare
+//    pf = &lengthCompare;
+//    same
+    
+    bool b1 = pf("hello", "goodbye");
+    cout << "b1" << b1 << endl;
+    
+    bool b2 = (*pf)("hello", "goodbye");
+    cout << "b2" << b2 << endl;
+
+    bool b3 = lengthCompare("hello", "goodbye");
+    cout << "b3" << b3 << endl;
+
     
     return 0;
 }
