@@ -34,6 +34,7 @@ public:
     //    const member function
     
     Sales_data& combine(const Sales_data&);
+    
 
 private:
 
