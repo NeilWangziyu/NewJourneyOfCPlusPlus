@@ -26,11 +26,38 @@ bool isShorter(const string &s1, const string &s2)
 
 string make_plural(size_t ctr,const string &word, const string &ending)
 {
-  return (ctr==1) ? word : word+ending;//make_plural(wc, "word ", "s ")当输入中文本中
-                                            //word数大于一是在word后加s，为words为word的复数！
+    return (ctr==1) ? word : word+ending;//make_plural(wc, "word ", "s ")当输入中文本中
+    //word数大于一是在word后加s，为words为word的复数！
 }
 
+void func1()
+{
+    size_t v1 = 42;
+    auto f = [v1] {return v1;};
+    v1 = 0;
+    auto j = f();
+    cout << j << endl;
+    //    j is 42, f is the copy of v1
+}
+void func2()
+{
+    size_t v1 = 42;
+    auto f2 = [&v1] {return v1;};
+    v1 = 0;
+    auto j = f2();
+//    j is 0, in f2 is ref of v1, not copy of v1
+    cout << j << endl;
+}
 
+void func3()
+{
+    size_t v1 = 42;
+    auto f = [v1] () mutable { return ++v1;};
+    v1 = 0;
+    auto j = f();
+    cout << j << endl;
+//    j is 43, mutable:改变一个被捕获的变量
+}
 int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Hello, World!\n";
@@ -76,7 +103,7 @@ int main(int argc, const char * argv[]) {
         cout << ite << endl;
     }
     
-//
+    //
     vector<string> inputs = {"the","quick", "fox", "jumps", "over","the", "quick", "red", "slow", "the", "turtle"};
     for (string it:inputs) {
         cout << it << " ";
@@ -97,11 +124,11 @@ int main(int argc, const char * argv[]) {
     }
     cout << endl;
     
-//    lambda
+    //    lambda
     auto f = [] {return 42;};
     cout << f() << endl;
     
-//    same as isShorter
+    //    same as isShorter
     [] (const string &a, const string &b)
     { return a.size() < b.size();};
     
@@ -118,21 +145,27 @@ int main(int argc, const char * argv[]) {
     [sz] (const string &a)
     {return a.size() >= sz;};
     
-//    查找第一个长度大于等于4的单词
+    //    查找第一个长度大于等于4的单词
     auto wc = find_if(inputs3.begin(), inputs3.end(),     [sz] (const string &a)
                       {return a.size() >= 4;});
     
     cout << *wc << endl;
     
-//    利用find_if查找从r他开始到末尾共有多少个元素
+    //    利用find_if查找从r他开始到末尾共有多少个元素
     auto count = inputs3.end() - wc;
     cout << count << " " << make_plural(count , "word", "s")
     << " of length " << sz << " or longer" << endl;
     
-//    for_Each
+    //    for_Each
     for_each(wc, inputs3.end(), [](const string &s){ cout << s << " ";});
+    cout << endl;
     
-    
+    func1();
+    func2();
+    func3();
     return 0;
-
+    
 }
+//command + R -> Run
+//control + i -> Re-indent
+
