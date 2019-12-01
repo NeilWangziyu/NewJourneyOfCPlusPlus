@@ -10,8 +10,11 @@
 #include <vector>
 #include <numeric>
 #include <iterator>
+#include <functional>
 
 using namespace std;
+using namespace std::placeholders;
+
 void elimDups(vector<string> &word)
 {
     sort(word.begin(), word.end());
@@ -163,6 +166,32 @@ int main(int argc, const char * argv[]) {
     func1();
     func2();
     func3();
+    
+    //
+    vector<int> vi = {1, -7, 11, 2, -5, 6, -8, 10};
+    transform(vi.begin(), vi.end(), vi.begin(), [](int i){ return i < 0 ? -i : i;});
+    for (auto item : vi) {
+        cout << item << " ";
+    }
+    cout << endl;
+    
+//    Bind:返回一个可调用对象
+//    include functional, and use std:placeholders
+//    利用Bind来颠倒isShort
+    sort(inputs3.begin(), inputs3.end(), bind(isShorter, _2, _1));
+    cout << "use bind to revise" << endl;
+    for (auto item : inputs3) {
+        cout << item << " ";
+    }
+    cout << endl;
+    
+    //    正常情况
+    sort(inputs3.begin(), inputs3.end(), isShorter);
+    for (auto item : inputs3) {
+        cout << item << " ";
+    }
+    cout << endl;
+    
     return 0;
     
 }
