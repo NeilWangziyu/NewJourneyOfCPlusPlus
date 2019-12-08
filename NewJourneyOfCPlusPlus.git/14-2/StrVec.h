@@ -1,10 +1,13 @@
 //
-//  main.cpp
-//  13-5
+//  StrVec.h
+//  NewJourneyOfCPlusPlus.git
 //
-//  Created by 王子昱 on 2019/12/5.
+//  Created by 王子昱 on 2019/12/8.
 //  Copyright © 2019 王子昱. All rights reserved.
 //
+
+#ifndef StrVec_h
+#define StrVec_h
 
 #include <iostream>
 #include <vector>
@@ -23,7 +26,13 @@ public:
     
     StrVec &operator=(const StrVec&);   // 拷贝赋值
     
-//    StrVec &operator=(std::initializer_list<string>);
+    StrVec &operator=(std::initializer_list<string>);
+    
+    std::string& operator[](std::size_t n)
+    {return elements[n];}
+    
+    const std::string &operator[](std::size_t n)
+    {return elements[n];}
     
     ~StrVec();
     
@@ -104,6 +113,16 @@ StrVec &StrVec::operator=(const StrVec &rhs)
     return *this;
 }
 
+StrVec &StrVec::operator=(std::initializer_list<string> il)
+{
+    auto data = alloc_n_copy(il.begin(), il.end());
+    free();
+    elements = data.first;
+    first_free = cap = data.second;
+    return *this;
+    
+}
+
 void StrVec::reallocate()
 {
     auto newcapacity = size() ? 2 * size() : 1;
@@ -123,8 +142,4 @@ void StrVec::reallocate()
     cap = elements + newcapacity;
 }
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
-}
+#endif /* StrVec_h */

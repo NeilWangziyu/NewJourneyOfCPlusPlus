@@ -84,7 +84,7 @@ int main(int argc, const char * argv[]) {
     int res = fact(10);
     cout << "func returns:" << res << endl;
     
-//    use static variable
+    //    use static variable
     for (int i = 0; i < 10; ++i) {
         cout << count_calls() << endl;
     }
