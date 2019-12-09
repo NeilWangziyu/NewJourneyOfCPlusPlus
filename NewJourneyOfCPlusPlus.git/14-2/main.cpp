@@ -56,6 +56,23 @@ struct divide{
     }
 };
 
+class smallInt
+{
+public:
+    smallInt(int i = 0) :val(i)
+    {
+        if (i < 0 || i > 255) {
+            throw std::out_of_range("Bad smallint value");
+        }
+    }
+    operator int() const { return val;}
+    
+//    explicit operator int() const {return val;}   显式
+
+private:
+    size_t val;
+};
+
 
 int main(int argc, const char * argv[]) {
     // insert code here...
@@ -75,7 +92,7 @@ int main(int argc, const char * argv[]) {
     sum  = intNegate(intadd(10, 20));
     cout << sum << endl;
     
-//    function table
+    //    function table
     map<string, int(*)(int, int)> binops;
     binops.insert({"+", add});
     
@@ -86,9 +103,9 @@ int main(int argc, const char * argv[]) {
     
     cout << f1(4, 2) << " " << f2(4, 5) << " " << f3(5, 6) << endl;
     
-//    map<string, function<int(int, int)>> binops2;
+    //    map<string, function<int(int, int)>> binops2;
     
-//    use the fucntion map binops2
+    //    use the fucntion map binops2
     map<string, function<int(int, int)>> binops2 = {
         {"+", add},
         {"-", std::minus<int>()},
@@ -107,6 +124,9 @@ int main(int argc, const char * argv[]) {
     
     binops2.insert({"+", fp});
     
-
+    smallInt si;
+    si = 4;
+    si + 3;
+    cout << si << endl;
     return 0;
 }
