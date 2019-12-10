@@ -1,11 +1,13 @@
 //
-//  main.cpp
-//  12-3
+//  TextQuery.h
+//  NewJourneyOfCPlusPlus.git
 //
-//  Created by 王子昱 on 2019/12/3.
+//  Created by 王子昱 on 2019/12/9.
 //  Copyright © 2019 王子昱. All rights reserved.
 //
 
+#ifndef TextQuery_h
+#define TextQuery_h
 #include <iostream>
 #include <memory>
 #include <vector>
@@ -16,6 +18,7 @@
 #include <iomanip>
 
 using namespace std;
+
 using line_no = vector<string>::size_type;
 using std::getline;
 class QueryResult;
@@ -37,8 +40,9 @@ private:
 TextQuery::TextQuery(ifstream &is): file(new vector<string>)
 {
     string text;
-    while (getline(is, text)) {
-//        奇怪...getline为什么不对！！！
+    //    while (getline(is, text)) {
+    //        奇怪...getline为什么不对！！！
+    while (true) {
         file->push_back(text);
         int n = file->size();
         istringstream line(text);
@@ -105,8 +109,4 @@ void runQueries(ifstream &infile)
     }
 }
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
-}
+#endif /* TextQuery_h */
