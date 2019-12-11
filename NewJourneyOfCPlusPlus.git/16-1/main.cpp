@@ -189,7 +189,43 @@ private:
 };
 
         
+template <typename A, typename B>
+int flexibleComapre(const A& v1, const B& v2)
+        {
+        if(v1 < v2) return -1;
+        if(v2 < v1) return 1;
+        return 0;
+        }
 
+template <typename T> ostream &print(ostream &os, const T &obj)
+        {
+        return os << obj;
+        }
+        
+// -------
+// explicit template argument
+template <typename T1, typename T2, typename T3>
+T1 sum(T2 v2, T3 v3)
+        {
+        return v2 + v3;
+        }
+
+        
+//  --------- 尾置返回类型
+template <typename It>
+auto fcn(It beg, It end) -> decltype(*beg)
+        {
+        return *beg;
+        }
+
+        
+//
+template <typename It>
+auto fcn2(It beg, It end) -> typename remove_reference<decltype(*beg)>::type
+        {
+        return *beg;
+        }
+        
 int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Hello, World!\n";
@@ -225,10 +261,26 @@ int main(int argc, const char * argv[]) {
     DebugDelete()(ip);
     
     
-        int iia[] = {0, 1, 2, 3, 4, 5};
-        vector<long> vi = {1,2,3};
-        list<const char*> w = {"ww", "xx", "ll"};
+    int iia[] = {0, 1, 2, 3, 4, 5};
+    vector<long> vi = {1,2,3};
+    list<const char*> w = {"ww", "xx", "ll"};
 //        Blob<int> a1(begin(iia), end(iia));
+    
+        print(cout, 42);
+        
+//        ofstream f("output");
+//        print(f, 10);
+        cout << endl;
+        long i = 99;
+        long lng = 789;
+        auto val3 = sum<long long>(i, lng);
+        cout << val3 << endl;
+    
+        vector<int> viii = {91,2,3,4,5};
+        auto &viip = fcn(viii.begin(), viii.end());
+        cout << viip << endl;
+    
+        
         
     return 0;
 }
